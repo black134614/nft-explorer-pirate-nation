@@ -61,8 +61,8 @@ export default function Home() {
       </h1>
 
       {/* Search Bar */}
-      <div className="flex justify-center items-center mt-8">
-        <div className="relative w-full max-w-lg">
+      <div className="flex flex-col items-center mt-8 space-y-4">
+        <div className="relative w-full max-w-lg flex items-center">
           {/* Input Field */}
           <input
             type="text"
@@ -87,15 +87,32 @@ export default function Home() {
               d="M21 21l-4.35-4.35M16.2 10.2a6 6 0 11-12 0 6 6 0 0112 0z"
             />
           </svg>
+          {/* Search Button */}
+          <button
+            onClick={handleSearch}
+            className="ml-4 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-lg 
+            hover:scale-105 hover:shadow-blue-500/50 transition-transform duration-300"
+          >
+            Search
+          </button>
         </div>
-        {/* Search Button */}
-        <button
-          onClick={handleSearch}
-          className="ml-4 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-lg 
-          hover:scale-105 hover:shadow-blue-500/50 transition-transform duration-300"
-        >
-          Search
-        </button>
+
+        {/* Suggested Addresses */}
+        <div className="flex space-x-2">
+          {[
+            "0xA6CD8C44B4e9557D94fc6d4566f325cA1dbdE367",
+            "0x098136497cACC9D381f7A554A40F8e6b1C68F587",
+            "0xCC5B9b52A610807FF5B51E78c3695F98FcEC9e3B",
+          ].map((addr) => (
+            <button
+              key={addr}
+              onClick={() => setAddress(addr)}
+              className="px-4 py-2 bg-gray-700 text-white text-sm rounded-full shadow-md hover:bg-gray-600 transition"
+            >
+              {addr.substring(0, 6)}...{addr.slice(-4)}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="min-h-full">
@@ -141,9 +158,9 @@ export default function Home() {
             </div>
           </>
         )}
-        {/* Footer */}
       </div>
 
+      {/* Footer */}
       <footer className="fixed bottom-0 left-0 w-full bg-gray-800 rounded-t-lg shadow-sm p-4">
         <div className="w-full mx-auto max-w-screen-xl md:flex md:items-center md:justify-between">
           <span className="text-sm text-gray-400 sm:text-center">
