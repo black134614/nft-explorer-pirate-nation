@@ -60,16 +60,6 @@ export default function Home() {
         NFT Explorer
       </h1>
 
-      {loading ? (
-        <div className="flex justify-center items-center mt-16">
-          <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      ) : (
-        <>
-          {/* Featured NFTs */}
-          <h2 className="text-3xl font-bold text-center mt-12 neon-text">
-            Featured NFTs
-          </h2>
           {/* Search Bar */}
       <div className="flex justify-center items-center mt-8">
         <div className="relative w-full max-w-lg">
@@ -108,6 +98,16 @@ export default function Home() {
         </button>
       </div>
 
+      {loading ? (
+        <div className="flex justify-center items-center mt-16">
+          <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      ) : (
+        <>
+          {/* Featured NFTs */}
+          <h2 className="text-3xl font-bold text-center mt-12 neon-text">
+            {nfts.length > 0 ? "Featured NFTs" : ""}
+          </h2>
       {loading && <p className="text-center text-gray-400 mt-4">Loading NFTs...</p>}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-8">
             {nfts.slice(0, 2).map((nft) => (
@@ -122,7 +122,7 @@ export default function Home() {
 
           {/* All NFTs */}
           <h2 className="text-3xl font-bold text-center mt-16 neon-text">
-            All NFTs Of {address}
+            {nfts.length > 0 ? `All NFTs Of ${address}` : ""}
           </h2>
 
           {/* Masonry Layout using Tailwind `columns` */}
