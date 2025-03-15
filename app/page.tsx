@@ -60,7 +60,7 @@ export default function Home() {
         NFT Explorer
       </h1>
 
-          {/* Search Bar */}
+      {/* Search Bar */}
       <div className="flex justify-center items-center mt-8">
         <div className="relative w-full max-w-lg">
           {/* Input Field */}
@@ -98,46 +98,76 @@ export default function Home() {
         </button>
       </div>
 
-      {loading ? (
-        <div className="flex justify-center items-center mt-16">
-          <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-full">
+        {loading ? (
+          <div className="flex justify-center items-center mt-16">
+            <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : (
+          <>
+            {/* Featured NFTs */}
+            <h2 className="text-3xl font-bold text-center mt-12 neon-text">
+              {nfts.length > 0 ? "Featured NFTs" : ""}
+            </h2>
+            {loading && (
+              <p className="text-center text-gray-400 mt-4">Loading NFTs...</p>
+            )}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-8">
+              {nfts.slice(0, 2).map((nft) => (
+                <div
+                  key={nft.id}
+                  className="bg-white/10 backdrop-blur-lg p-6 rounded-xl shadow-lg"
+                >
+                  <NFTCard nft={nft} />
+                </div>
+              ))}
+            </div>
+
+            {/* All NFTs */}
+            <h2 className="text-3xl font-bold text-center mt-16 neon-text">
+              {nfts.length > 0 ? `All NFTs Of ${address}` : ""}
+            </h2>
+
+            {/* Masonry Layout using Tailwind `columns` */}
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 mt-8">
+              {nfts.map((nft) => (
+                <div
+                  key={nft.id}
+                  className="break-inside-avoid bg-white/10 backdrop-blur-lg p-6 rounded-xl shadow-lg"
+                >
+                  <NFTDetailCard nft={nft} />
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+        {/* Footer */}
+      </div>
+
+      <footer className="fixed bottom-0 left-0 w-full bg-gray-800 rounded-t-lg shadow-sm p-4">
+        <div className="w-full mx-auto max-w-screen-xl md:flex md:items-center md:justify-between">
+          <span className="text-sm text-gray-400 sm:text-center">
+            © 2025{" "}
+            <a
+              href="https://www.facebook.com/ov.naul.1"
+              className="hover:underline text-blue-400"
+            >
+              luanvo
+            </a>
+            . All Rights Reserved.
+          </span>
+          <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-400 sm:mt-0">
+            <li>
+              <a
+                href="https://www.facebook.com/ov.naul.1"
+                className="hover:underline text-blue-400"
+              >
+                Contact via Facebook
+              </a>
+            </li>
+          </ul>
         </div>
-      ) : (
-        <>
-          {/* Featured NFTs */}
-          <h2 className="text-3xl font-bold text-center mt-12 neon-text">
-            {nfts.length > 0 ? "Featured NFTs" : ""}
-          </h2>
-      {loading && <p className="text-center text-gray-400 mt-4">Loading NFTs...</p>}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-8">
-            {nfts.slice(0, 2).map((nft) => (
-              <div
-                key={nft.id}
-                className="bg-white/10 backdrop-blur-lg p-6 rounded-xl shadow-lg"
-              >
-                <NFTCard nft={nft} />
-              </div>
-            ))}
-          </div>
-
-          {/* All NFTs */}
-          <h2 className="text-3xl font-bold text-center mt-16 neon-text">
-            {nfts.length > 0 ? `All NFTs Of ${address}` : ""}
-          </h2>
-
-          {/* Masonry Layout using Tailwind `columns` */}
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 mt-8">
-            {nfts.map((nft) => (
-              <div
-                key={nft.id}
-                className="break-inside-avoid bg-white/10 backdrop-blur-lg p-6 rounded-xl shadow-lg"
-              >
-                <NFTDetailCard nft={nft} />
-              </div>
-            ))}
-          </div>
-        </>
-      )}
+      </footer>
     </main>
   );
 }
